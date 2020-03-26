@@ -11,7 +11,7 @@
     "lintfix": "npm run lint -- --fix",
     "cover": "solidity-coverage",
     "test-local": "truffle test --network local",
-    "migrate": "truffle migrate",
+    "migrate": "truffle migrate --network rinkeby",
     "coverage": "./node_modules/.bin/solidity-coverage",
     "ganache": "ganache-cli --networkId 50 -p 8545 -m \"spike whip cancel pottery blade crane tomato flower ginger acid lava company\""
   },
