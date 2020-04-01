@@ -21,6 +21,7 @@ contract QVVoting is Ownable, MinterRole {
     event ProposalCreated(
         address creator,
         uint256 ProposalID,
+        string name,
         string description,
         uint votingTimeInHours
     );
@@ -32,6 +33,7 @@ contract QVVoting is Ownable, MinterRole {
         ProposalStatus status;
         uint256 yesVotes;
         uint256 noVotes;
+        string name;
         string description;
         address[] voters;
         uint expirationTime;
@@ -56,10 +58,12 @@ contract QVVoting is Ownable, MinterRole {
 
     /**
     * @dev Creates a new proposal.
+    * @param _name the name of the proposal
     * @param _description the text of the proposal
     * @param _voteExpirationTime expiration time in minutes
     */
     function createProposal(
+        string calldata _name,
         string calldata _description,
         uint _voteExpirationTime
     ) external returns (uint) {
@@ -72,11 +76,13 @@ contract QVVoting is Ownable, MinterRole {
         curProposal.creator = msg.sender;
         curProposal.status = ProposalStatus.IN_PROGRESS;
         curProposal.expirationTime = now + 60 * _voteExpirationTime * 1 seconds;
+        curProposal.name = _name;
         curProposal.description = _description;
 
         emit ProposalCreated(
             msg.sender,
             ProposalCount,
+            _name,
             _description,
             _voteExpirationTime
         );
