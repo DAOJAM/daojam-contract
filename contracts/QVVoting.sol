@@ -46,10 +46,12 @@ contract QVVoting is Ownable, MinterRole {
 
     mapping(uint256 => Proposal) public Proposals;
     uint public ProposalCount;
+    uint public createCost;
 
     constructor() public {
         symbol = "QVV";
         name = "QV Voting";
+        createCost = 100;
     }
 
     /**
@@ -60,8 +62,10 @@ contract QVVoting is Ownable, MinterRole {
     function createProposal(
         string calldata _description,
         uint _voteExpirationTime
-    ) external onlyOwner returns (uint) {
+    ) external returns (uint) {
         require(_voteExpirationTime > 0, "The voting period cannot be 0");
+
+        _balances[msg.sender] = _balances[msg.sender].sub(createCost);
         ProposalCount++;
 
         Proposal storage curProposal = Proposals[ProposalCount];
@@ -117,6 +121,16 @@ contract QVVoting is Ownable, MinterRole {
             "voting period has not expired"
         );
         Proposals[_ProposalID].status = ProposalStatus.ENDED;
+    }
+
+    /**
+    * @dev set create cost.
+    */
+    function setCreateCost(uint _createCost)
+        external
+        onlyOwner
+    {
+        createCost = _createCost;
     }
 
     /**

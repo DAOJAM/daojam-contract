@@ -1,6 +1,7 @@
 # Quadratic Voting
 owner address: 0x2F129a52aAbDcb9Fa025BFfF3D4C731c2D914932
 contract address: 0x9CF123de9927E8a03B12a9bca3B86E84C2dfEA8D
+new version contract address: 0x57b5Fa43777E3FD01c362f15BA82AB955C1D41b9
 
 ```
 .
